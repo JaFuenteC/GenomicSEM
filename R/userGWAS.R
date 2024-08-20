@@ -73,14 +73,13 @@ userGWAS <- function (covstruc = NULL, SNPs = NULL, estimation = "DWLS",
   I_LD <- as.matrix(covstruc[[3]])
   Model1 <- model
   
-
   ############################## GLS ANALYTIC ESTIMATOR ############################
   if(estimator=="analytic" & fix_measurement == TRUE) {
   .userGWAS_GLS(covstruc = covstruc, SNPs = SNPs,
                 estimator = "iterative",model = model, usermod = usermod,
                 diagGLS=diagGLS,fix_measurement = fix_measurement)
   } else {
-
+  ####################################################################################
   if (fix_measurement) {
     rownames(S_LD) <- colnames(S_LD)
     lines <- strsplit(model, "\n")[[1]]
