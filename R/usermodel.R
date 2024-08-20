@@ -718,7 +718,7 @@ usermodel <-function(covstruc,estimation="DWLS", model = "", CFIcalc=TRUE, std.l
     }  
     
     if(imp_cov == FALSE){
-      return(list(modelfit=modelfit,results=results))
+      return(list(modelfit=modelfit,results=results,Ohtt=Ohtt))
     }
     
     if(imp_cov == TRUE){
