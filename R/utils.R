@@ -224,3 +224,30 @@ return(S_Full)
     }
     return(Z_pre)
 }
+
+  .extract_lambdas <- function(df) {
+   # Define the traits and factors
+   traits <- colnames(covstruc$S)
+   # Initialize lambdas vector dynamically
+   num_traits <- length(traits)
+   num_factors <- num_factors
+   lambdas <- rep(0, num_traits * num_factors)
+   # Fill the lambdas vector
+   for (factor_idx in seq_along(factors)) {
+     factor <- factors[factor_idx]
+     for (trait_idx in seq_along(traits)) {
+       trait <- traits[trait_idx]
+       row <- df[df$lhs == factor & df$rhs == trait & df$op == "=~", ]
+       if (nrow(row) > 0) {
+         lambda_value <- row$Unstand_Est
+       } else {
+         lambda_value <- 0
+       }
+       lambdas[(factor_idx - 1) * num_traits + trait_idx] <- lambda_value
+     }
+   }
+  # Convert lambdas to a data frame and assign column names
+  lambdas_df <- data.frame(matrix(lambdas, nrow=1, byrow=TRUE))
+  colnames(lambdas_df) <- column_names
+    return(lambdas_df)
+  }
