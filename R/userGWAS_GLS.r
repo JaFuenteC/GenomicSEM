@@ -13,20 +13,20 @@
 
   sumstatsGLS = SNPs
   # If usermod is NULL
-  if(is.null(usermod)){
-  nosnp_model <- paste(grep("~\\s*SNP$", strsplit(model, "\n")[[1]], value = TRUE, invert = TRUE), collapse = "\n")
+  #if(is.null(usermod)){
+  #nosnp_model <- paste(grep("~\\s*SNP$", strsplit(model, "\n")[[1]], value = TRUE, invert = TRUE), collapse = "\n")
   # Extract the factor names from these lines
-  snp_lines <- grep("~\\s*SNP$", strsplit(model, "\n")[[1]], value = TRUE)
-  factors <- unique(gsub("~.*", "", snp_lines))
+  #snp_lines <- grep("~\\s*SNP$", strsplit(model, "\n")[[1]], value = TRUE)
+  #factors <- unique(gsub("~.*", "", snp_lines))
   # Fit no-SNP model
-  nosnpmod <- usermodel(covstruc,estimation = "DWLS", 
-                        model = nosnp_model, 
-                        CFIcalc = FALSE, std.lv = FALSE, imp_cov = FALSE)  
-  usermod = nosnpmod
-  }   
-  nosnpmod = usermod   
+  #nosnpmod <- usermodel(covstruc,estimation = "DWLS", 
+  #                     model = nosnp_model, 
+  #                      CFIcalc = FALSE, std.lv = FALSE, imp_cov = FALSE)  
+  #usermod = Model1
+  #}   
+  nosnpmod = Model1   
   # Extract lambdas from usermodel output
-  factors <- unique(nosnpmod$results$lhs[nosnpmod$results$op == "=~"])
+  factors <- unique(nosnpmod$lhs[nosnpmod$op == "=~"])
   traits <- colnames(covstruc$S)
   num_traits <- ncol(covstruc$S)
   num_factors <- length(factors)
@@ -34,7 +34,7 @@
   combinations <- expand.grid(traits = traits, factors = factors)
   column_names <- paste0("lambda.", combinations$traits, "_", combinations$factors)
   # Store lambdas
-  lambdas <- .extract_lambdas(nosnpmod$results)
+  lambdas <- .extract_lambdas(nosnpmod)
   ### Create data structure for output ###
   GLS_mGWAS_results <- sumstatsGLS[, 1:6]
   # Extract necessary columns from sumstatsGLS
