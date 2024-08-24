@@ -1,5 +1,5 @@
 userGWAS <- function (covstruc = NULL, SNPs = NULL, estimation = "DWLS",
-  estimator = "iterative",model = "", usermod = NULL,diagGLS=TRUE,
+  estimator = "iterative",model = "", diagGLS=TRUE,
   printwarn = TRUE, sub = FALSE, cores = NULL, 
   toler = FALSE, SNPSE = FALSE, parallel = TRUE, GC = "standard", 
   MPI = FALSE, smooth_check = FALSE, TWAS = FALSE, std.lv = FALSE, 
@@ -122,7 +122,7 @@ userGWAS <- function (covstruc = NULL, SNPs = NULL, estimation = "DWLS",
   ############################## GLS ANALYTIC ESTIMATOR ############################
   if(estimator=="analytic" & fix_measurement == TRUE) {
   .userGWAS_GLS(covstruc = covstruc, SNPs = SNPs,
-                estimator = "iterative",model = model, usermod = usermod,
+                estimator = "iterative",model = model,
                 diagGLS=diagGLS,fix_measurement = fix_measurement)
   } else {
   ####################################################################################
