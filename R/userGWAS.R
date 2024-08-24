@@ -73,13 +73,6 @@ userGWAS <- function (covstruc = NULL, SNPs = NULL, estimation = "DWLS",
   I_LD <- as.matrix(covstruc[[3]])
   Model1 <- model
   
-  ############################## GLS ANALYTIC ESTIMATOR ############################
-  if(estimator=="analytic" & fix_measurement == TRUE) {
-  .userGWAS_GLS(covstruc = covstruc, SNPs = SNPs,
-                estimator = "iterative",model = model, usermod = usermod,
-                diagGLS=diagGLS,fix_measurement = fix_measurement)
-  } else {
-  ####################################################################################
   if (fix_measurement) {
     rownames(S_LD) <- colnames(S_LD)
     lines <- strsplit(model, "\n")[[1]]
@@ -125,6 +118,15 @@ userGWAS <- function (covstruc = NULL, SNPs = NULL, estimation = "DWLS",
         0, Model1$free[p])
     }
   }
+
+  ############################## GLS ANALYTIC ESTIMATOR ############################
+  if(estimator=="analytic" & fix_measurement == TRUE) {
+  .userGWAS_GLS(covstruc = covstruc, SNPs = SNPs,
+                estimator = "iterative",model = model, usermod = usermod,
+                diagGLS=diagGLS,fix_measurement = fix_measurement)
+  } else {
+  ####################################################################################
+
   beta_SNP <- SNPs[, grep("beta.", fixed = TRUE, colnames(SNPs))]
   SE_SNP <- SNPs[, grep("se.", fixed = TRUE, colnames(SNPs))]
   n_phenotypes <- ncol(beta_SNP)
