@@ -5,11 +5,7 @@
  new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[,"Package"])]
  if(length(new.packages)) stop("Missing package(s) ", paste0(new.packages, collapse=" and "))
  lapply(list.of.packages, library, character.only = TRUE)
-
-  if (fix_measurement != TRUE & estimator == "analytic") {
-    stop("Analytic estimator is only available when the argument fix_measurement = TRUE. Please set the fix_measurement argument to TRUE")
-  }
-
+ 
   sumstatsGLS = SNPs 
   # Extract lambdas
   factors <- unique(nosnpmod$lhs[nosnpmod$op == "=~"])
