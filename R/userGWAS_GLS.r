@@ -1,6 +1,5 @@
 .userGWAS_GLS = function (covstruc = covstruc, SNPs = SNPs,
-                          estimator = "iterative",nosnpmod = Model1,
-                          diagGLS=diagGLS,fix_measurement = TRUE) {
+                          nosnpmod = Model1,diagGLS=diagGLS,fix_measurement = TRUE) {
 
  list.of.packages <- c("data.table", "GenomicSEM","dplyr","stringr","stringr","simsalapar","gdata","Matrix","lavaan","progress")
  new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[,"Package"])]

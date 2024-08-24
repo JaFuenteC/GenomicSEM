@@ -92,7 +92,7 @@ userGWAS <- function (covstruc = NULL, SNPs = NULL, estimation = "DWLS",
     W <- solve(V_LD, tol = toler)
     testnoSNP <- GenomicSEM:::.tryCatch.W.E(ReorderModelnoSNP <- sem(noSNPmodel, 
       sample.cov = S_LD, estimator = "DWLS", WLS.V = W, 
-      sample.nobs = 2, optim.dx.tol = +Inf, optim.force.converged = TRUE, 
+      sample.nobs = 2, optim.dx.tol = .01, optim.force.converged = TRUE, 
       control = list(iter.max = 1), std.lv = std.lv))
     order <- GenomicSEM:::.rearrange(k = ncol(S_LD), fit = ReorderModelnoSNP, 
       names = colnames(S_LD))
