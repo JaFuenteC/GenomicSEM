@@ -16,7 +16,7 @@
   combinations <- expand.grid(traits = traits, factors = factors)
   column_names <- paste0("lambda.", combinations$traits, "_", combinations$factors)
   # Store lambdas
-  lambdas <- .extract_lambdas(nosnpmod,num_factors=num_factors,covstruc=covstruc,factors=factors)
+  lambdas <- .extract_lambdas(nosnpmod,num_factors=num_factors,covstruc=covstruc,factors=factors,column_names=column_names)
   ### Create data structure for output ###
   GLS_mGWAS_results <- sumstatsGLS[, 1:6]
   # Extract necessary columns from sumstatsGLS

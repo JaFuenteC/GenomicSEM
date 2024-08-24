@@ -225,7 +225,7 @@ return(S_Full)
     return(Z_pre)
 }
 
-.extract_lambdas <- function(df,num_factors=num_factors,covstruc=covstruc,factors=factors) {
+.extract_lambdas <- function(df,num_factors=num_factors,covstruc=covstruc,factors=factors,column_names=column_names) {
    # Define the traits and factors
    traits <- colnames(covstruc$S)
    # Initialize lambdas vector dynamically
