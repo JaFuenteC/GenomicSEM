@@ -122,7 +122,7 @@ userGWAS <- function (covstruc = NULL, SNPs = NULL, estimation = "DWLS",
   ############################## GLS ANALYTIC ESTIMATOR ############################
   if(estimator=="analytic" & fix_measurement == TRUE) {
   .userGWAS_GLS(covstruc = covstruc, SNPs = SNPs,
-                estimator = "analytic",nosnpmod = Model1,
+                nosnpmod = Model1,
                 diagGLS=diagGLS,fix_measurement = fix_measurement)
   } else {
   ####################################################################################
