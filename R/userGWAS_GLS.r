@@ -1,5 +1,5 @@
 .userGWAS_GLS = function (covstruc = covstruc, SNPs = SNPs,
-                          estimator = "iterative",model = model, usermod = usermod,
+                          estimator = "iterative",model = model,
                           diagGLS=diagGLS,fix_measurement = TRUE) {
 
  list.of.packages <- c("data.table", "GenomicSEM","dplyr","stringr","stringr","simsalapar","gdata","Matrix","lavaan","progress")
@@ -12,20 +12,8 @@
   }
 
   sumstatsGLS = SNPs
-  # If usermod is NULL
-  #if(is.null(usermod)){
-  #nosnp_model <- paste(grep("~\\s*SNP$", strsplit(model, "\n")[[1]], value = TRUE, invert = TRUE), collapse = "\n")
-  # Extract the factor names from these lines
-  #snp_lines <- grep("~\\s*SNP$", strsplit(model, "\n")[[1]], value = TRUE)
-  #factors <- unique(gsub("~.*", "", snp_lines))
-  # Fit no-SNP model
-  #nosnpmod <- usermodel(covstruc,estimation = "DWLS", 
-  #                     model = nosnp_model, 
-  #                      CFIcalc = FALSE, std.lv = FALSE, imp_cov = FALSE)  
-  #usermod = Model1
-  #}   
   nosnpmod = Model1   
-  # Extract lambdas from usermodel output
+  # Extract lambdas
   factors <- unique(nosnpmod$lhs[nosnpmod$op == "=~"])
   traits <- colnames(covstruc$S)
   num_traits <- ncol(covstruc$S)
