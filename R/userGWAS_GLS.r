@@ -1,5 +1,5 @@
 .userGWAS_GLS = function (covstruc = covstruc, SNPs = SNPs,
-                          estimator = "iterative",model = model,
+                          estimator = "iterative",nosnpmod = Model1,
                           diagGLS=diagGLS,fix_measurement = TRUE) {
 
  list.of.packages <- c("data.table", "GenomicSEM","dplyr","stringr","stringr","simsalapar","gdata","Matrix","lavaan","progress")
@@ -11,8 +11,7 @@
     stop("Analytic estimator is only available when the argument fix_measurement = TRUE. Please set the fix_measurement argument to TRUE")
   }
 
-  sumstatsGLS = SNPs
-  nosnpmod = Model1   
+  sumstatsGLS = SNPs 
   # Extract lambdas
   factors <- unique(nosnpmod$lhs[nosnpmod$op == "=~"])
   traits <- colnames(covstruc$S)
