@@ -104,12 +104,12 @@ userGWAS <- function (covstruc = NULL, SNPs = NULL, estimation = "DWLS",
     if (estimation == "DWLS") {
       emptynoSNP <- GenomicSEM:::.tryCatch.W.E(Model1_Results <- sem(noSNPmodel, 
         sample.cov = S_LD, estimator = "DWLS", WLS.V = W_Reorder, 
-        sample.nobs = 2, optim.dx.tol = +Inf, std.lv = std.lv))
+        sample.nobs = 2, optim.dx.tol = 0.01, std.lv = std.lv))
     }
     if (estimation == "ML") {
       emptynoSNP <- GenomicSEM:::.tryCatch.W.E(Model1_Results <- sem(noSNPmodel, 
         sample.cov = S_LD, estimator = "ML", sample.nobs = 200, 
-        optim.dx.tol = +Inf, sample.cov.rescale = FALSE, 
+        optim.dx.tol = 0.01, sample.cov.rescale = FALSE, 
         std.lv = std.lv))
     }
     Model1 <- parTable(Model1_Results)
@@ -148,7 +148,7 @@ userGWAS <- function (covstruc = NULL, SNPs = NULL, estimation = "DWLS",
     W <- solve(V_full, tol = toler)
     test2 <- GenomicSEM:::.tryCatch.W.E(ReorderModel <- sem(model, sample.cov = S_Full, 
       estimator = "DWLS", WLS.V = W, sample.nobs = 2, 
-      optim.dx.tol = +Inf, optim.force.converged = TRUE, 
+      optim.dx.tol = 0.01, optim.force.converged = TRUE, 
       control = list(iter.max = 1), std.lv = std.lv))
     if (fix_measurement) {
       withSNP <- parTable(ReorderModel)
@@ -174,7 +174,7 @@ userGWAS <- function (covstruc = NULL, SNPs = NULL, estimation = "DWLS",
       }
       test3 <- GenomicSEM:::.tryCatch.W.E(ReorderModel <- sem(Model1, 
         sample.cov = S_Full, estimator = "DWLS", WLS.V = W, 
-        sample.nobs = 2, optim.dx.tol = +Inf, optim.force.converged = TRUE, 
+        sample.nobs = 2, optim.dx.tol = 0.01, optim.force.converged = TRUE, 
         control = list(iter.max = 1), std.lv = std.lv))
     }
     order <- GenomicSEM:::.rearrange(k = k2, fit = ReorderModel, names = rownames(S_Full))
