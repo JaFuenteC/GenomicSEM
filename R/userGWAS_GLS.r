@@ -45,7 +45,7 @@
     return(lambdas_df)
 }
   # Store lambdas
-  lambdas <- extract_lambdas(nosnpmod$results)
+  lambdas <- extract_lambdas(nosnpmod)
   
   ### Create data structure for output ###
   GLS_mGWAS_results <- sumstatsGLS[, 1:6]
