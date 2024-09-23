@@ -9,8 +9,8 @@
   sumstatsGLS = SNPs 
   # Extract lambdas from usermodel output
   factors <- unique(nosnpmod$results$lhs[nosnpmod$results$op == "=~"])
-  traits <- colnames(LDSCoutput$S)
-  num_traits <- ncol(LDSCoutput$S)
+  traits <- colnames(covstruc$S)
+  num_traits <- ncol(covstruc$S)
   num_factors <- length(factors)
   # Generate all combinations of traits and factors
   combinations <- expand.grid(traits = traits, factors = factors)
@@ -18,7 +18,7 @@
   
   extract_lambdas <- function(df) {
    # Define the traits and factors
-   traits <- colnames(LDSCoutput$S)
+   traits <- colnames(covstruc$S)
    # Initialize lambdas vector dynamically
    num_traits <- length(traits)
    num_factors <- num_factors
@@ -83,7 +83,7 @@
   # Store lambdas
   lambdas_snp <- as.numeric(lambdas)
   # Create sampling correlation matrix
-  R_SNP=LDSCoutput$I 
+  R_SNP=covstruc$I 
   diag(R_SNP)[diag(R_SNP)<1]=1
   X = matrix(NA,num_traits,num_factors) 
   X[] = lambdas_snp
@@ -136,7 +136,7 @@
   colnames(Z_df_parallel) <- c("Z_Comp_Parallel", "Z_Psych_Parallel", "Z_Neuro_Parallel", "Z_Int_Parallel", "Z_SUD_Parallel")
   
   ################################### QSNP CALCULATION #####################################################
-  solveI=solve(LDSCoutput$I) #calculate this just once (constant acrossSNPs)  
+  solveI=solve(covstruc$I) #calculate this just once (constant acrossSNPs)  
   ########################## 1. QSNP OMNIBUS ##########################
     # Initialize an empty list to store the beta_hats for each SNP
     # First, ensure each element in Beta_list is a numeric vector
