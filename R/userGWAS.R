@@ -1,8 +1,8 @@
-userGWAS <- function(covstruc=NULL, SNPs=NULL, estimation="DWLS", model="", printwarn=TRUE,
+userGWAS <- function(covstruc=NULL, SNPs=NULL, estimation="DWLS", model="", printwarn=TRUE,usermod=NULL,
                      sub=FALSE,cores=NULL, toler=FALSE, SNPSE=FALSE, parallel=TRUE, GC="standard", MPI=FALSE,
                      smooth_check=FALSE, TWAS=FALSE, std.lv=FALSE,fix_measurement=TRUE,Q_SNP=FALSE){
   
-  # Set toler to machine precision to enable passing this to solve() directly
+    # Set toler to machine precision to enable passing this to solve() directly
   if (!toler) toler <- .Machine$double.eps
   .check_one_of(estimation, c("DWLS", "ML"))
   .check_boolean(printwarn)
@@ -80,7 +80,7 @@ userGWAS <- function(covstruc=NULL, SNPs=NULL, estimation="DWLS", model="", prin
   I_LD <- as.matrix(covstruc[[3]])
   Model1 <- model
   
-  if(fix_measurement){
+  if(fix_measurement & is.null(usermod)){
       
       #name rownames as column names
       rownames(S_LD)<-colnames(S_LD)
@@ -145,7 +145,14 @@ userGWAS <- function(covstruc=NULL, SNPs=NULL, estimation="DWLS", model="", prin
     Model1$ustart<-ifelse(is.na(Model1$ustart),0,Model1$ustart)
       
     }
-  
+   
+
+  if(estimator=="analytic" & fix_measurement == TRUE) {
+  .userGWAS_GLS(covstruc = covstruc, SNPs = SNPs,
+                  nosnpmod = Model1)
+  }
+
+
   beta_SNP <- SNPs[,grep("beta.",fixed=TRUE,colnames(SNPs))]
   SE_SNP <- SNPs[,grep("se.",fixed=TRUE,colnames(SNPs))]
   
