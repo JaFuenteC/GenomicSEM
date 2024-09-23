@@ -253,14 +253,14 @@
     })
     # Combine results into a data frame
     QsnpF_df <- do.call(cbind, QsnpF_list)
-    colnames(QsnpF_df) <- paste0("Q_", factors,"_parallel")
+    colnames(QsnpF_df) <- paste0("Q_", factors)
     
     # Populate the GLS_mGWAS_results for factor-specific variables
       for (j in factors) {
-        GLS_mGWAS_results[, paste0("beta_", j)] <- Beta_parallel_df[, paste("Beta_",j,"_Parallel",sep="")]
-        GLS_mGWAS_results[, paste0("SE_", j)] <- SE_parallel_df[, paste("SE_",j,"_Parallel",sep="")]
-        GLS_mGWAS_results[, paste0("Z_beta_", j)] <- Z_df_parallel[, paste("Z_",j,"_Parallel",sep="")]
-        GLS_mGWAS_results[, paste0("Q_", j)] <- QsnpF_df[, paste("Q_",j,"_parallel",sep="")]
+        GLS_mGWAS_results[, paste0("beta_", j)] <- Beta_parallel_df[, paste("Beta_",j,sep="")]
+        GLS_mGWAS_results[, paste0("SE_", j)] <- SE_parallel_df[, paste("SE_",j,sep="")]
+        GLS_mGWAS_results[, paste0("Z_beta_", j)] <- Z_df_parallel[, paste("Z_",j,sep="")]
+        GLS_mGWAS_results[, paste0("Q_", j)] <- QsnpF_df[, paste("Q_",j,sep="")]
       }
       # Add the Qmnibus column
       GLS_mGWAS_results[, "Q_omnibus"] <- Q_Omnibus_parallel   
