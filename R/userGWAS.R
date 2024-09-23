@@ -1,4 +1,4 @@
-userGWAS <- function(covstruc=NULL, SNPs=NULL, estimation="DWLS", model="", printwarn=TRUE,usermod=NULL,
+userGWAS <- function(covstruc=NULL, SNPs=NULL, analytic = TRUE, estimation="DWLS", model="", printwarn=TRUE,usermod=NULL,
                      sub=FALSE,cores=NULL, toler=FALSE, SNPSE=FALSE, parallel=TRUE, GC="standard", MPI=FALSE,
                      smooth_check=FALSE, TWAS=FALSE, std.lv=FALSE,fix_measurement=TRUE,Q_SNP=FALSE){
   
@@ -146,13 +146,18 @@ userGWAS <- function(covstruc=NULL, SNPs=NULL, estimation="DWLS", model="", prin
       
     }
    
+  if(!is.null(usermod)){
+    Model1 = usermod$results
+    colnames(Model1)[4] = "est"
+  } 
 
-  if(estimator=="analytic" & fix_measurement == TRUE) {
-  .userGWAS_GLS(covstruc = covstruc, SNPs = SNPs,
+  ##### GLS ANALYTIC ESTIMATOR ####
+  if(analytic==TRUE & fix_measurement == TRUE) {
+  GLS_results = .userGWAS_GLS(covstruc = covstruc, SNPs = SNPs,
                   nosnpmod = Model1)
   }
 
-
+ if(analytic!=TRUE){
   beta_SNP <- SNPs[,grep("beta.",fixed=TRUE,colnames(SNPs))]
   SE_SNP <- SNPs[,grep("se.",fixed=TRUE,colnames(SNPs))]
   
@@ -188,7 +193,7 @@ userGWAS <- function(covstruc=NULL, SNPs=NULL, estimation="DWLS", model="", prin
                                                WLS.V = W, sample.nobs = 2, optim.dx.tol = .01, optim.force.converged=TRUE
                                                ,control=list(iter.max=1),std.lv=std.lv))
     
-    if(fix_measurement){
+    if(fix_measurement & is.null(usermod)){
       #pull the model with SNP effects
       withSNP<-parTable(ReorderModel)
       
@@ -381,5 +386,7 @@ userGWAS <- function(covstruc=NULL, SNPs=NULL, estimation="DWLS", model="", prin
     print(time_all[3])
     return(Results_List)
     
+    }
   }
+  return(GLS_results)
 }
