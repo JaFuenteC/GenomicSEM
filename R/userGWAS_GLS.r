@@ -8,7 +8,7 @@
  VMV = function (V1,M,V2){V1 %*% M %*% V2}
   sumstatsGLS = SNPs 
   # Extract lambdas from usermodel output
-  factors <- unique(nosnpmod$results$lhs[nosnpmod$results$op == "=~"])
+  factors <- unique(nosnpmod$lhs[nosnpmod$op == "=~"])
   traits <- colnames(covstruc$S)
   num_traits <- ncol(covstruc$S)
   num_factors <- length(factors)
