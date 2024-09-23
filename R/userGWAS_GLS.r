@@ -5,7 +5,7 @@
  new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[,"Package"])]
  if(length(new.packages)) stop("Missing package(s) ", paste0(new.packages, collapse=" and "))
  lapply(list.of.packages, library, character.only = TRUE)
- 
+ VMV = function (V1,M,V2){V1 %*% M %*% V2}
   sumstatsGLS = SNPs 
   # Extract lambdas from usermodel output
   factors <- unique(nosnpmod$results$lhs[nosnpmod$results$op == "=~"])
