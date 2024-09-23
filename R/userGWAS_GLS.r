@@ -124,16 +124,16 @@
   # Convert SE_parallel_list to a data frame
   SE_parallel_df <- do.call(rbind, SE_parallel_list)
   SE_parallel_df <- as.data.frame(SE_parallel_df)
-  colnames(SE_parallel_df) <- c("SE_Comp_Parallel", "SE_Psych_Parallel", "SE_Neuro_Parallel", "SE_Int_Parallel", "SE_SUD_Parallel")
+  colnames(SE_parallel_df) <- paste("SE_",colnames(SE_parallel_df),sep="")
 
   # Convert Beta_list to a data frame
   Beta_parallel_df <- do.call(rbind, lapply(Beta_list, as.numeric))
   Beta_parallel_df <- as.data.frame(Beta_parallel_df)
-  colnames(Beta_parallel_df) <- c("Beta_Comp_Parallel", "Beta_Psych_Parallel", "Beta_Neuro_Parallel", "Beta_Int_Parallel", "Beta_SUD_Parallel")
+  colnames(Beta_parallel_df) <- paste("Beta_",colnames(SE_parallel_df),sep="")
     
   # Z_Statistics
   Z_df_parallel = Beta_parallel_df/SE_parallel_df
-  colnames(Z_df_parallel) <- c("Z_Comp_Parallel", "Z_Psych_Parallel", "Z_Neuro_Parallel", "Z_Int_Parallel", "Z_SUD_Parallel")
+  colnames(Z_df_parallel) <- paste("Z_",colnames(SE_parallel_df),sep="")
   
   ################################### QSNP CALCULATION #####################################################
   solveI=solve(covstruc$I) #calculate this just once (constant acrossSNPs)  
