@@ -30,7 +30,7 @@
        trait <- traits[trait_idx]
        row <- df[df$lhs == factor & df$rhs == trait & df$op == "=~", ]
        if (nrow(row) > 0) {
-         lambda_value <- row$Unstand_Est
+         lambda_value <- row$est
        } else {
          lambda_value <- 0
        }
